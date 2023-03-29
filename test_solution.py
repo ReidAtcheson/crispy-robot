@@ -31,21 +31,25 @@ V,H=arnoldi.arnoldi(lambda x : A@x,v,k)
 
 nsamples=100
 eigA=la.eigvalsh(A)
-zs=np.linspace(min(eigA),max(eigA),nsamples)
+zs=np.linspace(0.0,max(eigA),nsamples)
 
 
 P=arnoldi.arnoldi_basis(H,v,zs)
 
 x,p=arnoldi.gmres_step(lambda x : A@x,v,zs,k)
-_,p0=arnoldi.gmres_step(lambda x : A@x,v,np.array([0.0]),k)
+#_,p0=arnoldi.gmres_step(lambda x : A@x,v,np.array([0.0]),k)
 
 
 
-for i in range(0,k+1):
-    plt.plot(zs,P[:,i])
-    plt.scatter(eigA,np.zeros(len(eigA)))
 
-    ks=str(i).zfill(5)
-    plt.savefig(f"plots_basis/polynomial{ks}.svg")
+plt.plot(zs,p)
+plt.scatter(eigA,np.zeros(len(eigA)))
+plt.savefig("solution.svg")
+#for i in range(0,k+1):
+#    plt.plot(zs,P[:,i])
+#    plt.scatter(eigA,np.zeros(len(eigA)))
+#
+#    ks=str(i).zfill(5)
+#    plt.savefig(f"plots_basis/polynomial{ks}.svg")
 
-    plt.close()
+#    plt.close()

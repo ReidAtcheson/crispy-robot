@@ -116,6 +116,27 @@ def polynomial_step(A,b,x0,H,y,beta):
 
 
 
+#Symbolically evaluate residual calculated by methods presented here
+#This is just a stopgap method to get coefficients in the monomial basis
+def arnoldi_res_eval(H,v,c):
+    _,k=H.shape
+    P=[None for _ in range(k+1)]
+    z=symbols("z")
+    P[0]=z/np.linalg.norm(v)
+    for j in range(0,k):
+        w=z*P[j]
+        for i in range(0,j+1):
+            w=w-H[i,j]*P[i]
+        P[j+1]=w/H[j+1,j]
+
+
+    out=0
+    for (ci,pi) in zip(c,P):
+        out=out+ci*pi
+    return out
+
+
+
 
 
 def arnoldi_basis(H,v,z):

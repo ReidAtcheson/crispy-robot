@@ -60,6 +60,7 @@ v=np.ones(len(ws))
 beta=np.sqrt(legdot(v,v))
 V,H=arnoldi.arnoldi_general(lambda y : (xs*y.T).T,v,k,legdot)
 x,y = arnoldi.gmres_general_step(lambda y : (xs*y.T).T,v,k,legdot)
+
 plt.imshow(H)
 plt.colorbar()
 plt.savefig("H.png")

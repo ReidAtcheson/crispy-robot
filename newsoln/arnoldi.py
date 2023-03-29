@@ -140,13 +140,13 @@ def arnoldi_basis(H,v,z):
 
 def gmres_step(A,b,z,k):
     m=len(b)
-    x=np.zeros_like(b)
+    x=np.zeros((m,))
     r=b-A(x)
     V,H=arnoldi(A,r,k)
     P=arnoldi_basis(H,r,z)
 
     beta=np.linalg.norm(r)
-    e=np.zeros(k+1,dtype=x.dtype)
+    e=np.zeros(k+1)
     e[0]=beta
     y,_,_,_=la.lstsq(H,e)
     x=x+V[:,0:k]@y
